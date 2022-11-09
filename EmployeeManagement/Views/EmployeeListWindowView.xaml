@@ -11,7 +11,8 @@
         Height="450"
         Width="800"
         FontSize="12"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Window.ResizeMode="CanMinimize">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadCommand}" />
@@ -30,7 +31,7 @@
                     Grid.Column="0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Width="600"
+                    Width="650"
                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
@@ -44,9 +45,9 @@
                     ItemsSource="{Binding Path=EmployeeListAdapters}"
                     SelectedItem="{Binding Path=SelectedEmployeeListAdapter}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="従業員名" Binding="{Binding Path=EmployeeName}" Width="150"/>
-                        <DataGridTextColumn Header="年齢" Binding="{Binding Path=Age}" Width="50"/>
-                        <DataGridTextColumn Header="性別" Binding="{Binding Path=Gender}" Width="50"/>
+                        <DataGridTextColumn Header="従業員名" Binding="{Binding Path=EmployeeName}" Width="200"/>
+                        <DataGridTextColumn Header="年齢" Binding="{Binding Path=Age}" Width="75"/>
+                        <DataGridTextColumn Header="性別" Binding="{Binding Path=Gender}" Width="75"/>
                         <DataGridTextColumn Header="メールアドレス" Binding="{Binding Path=MailAddress}" Width="200"/>
                         <DataGridTextColumn Header="所属部門" Binding="{Binding Path=DepartmentName}" Width="150"/>
                         <DataGridTextColumn Header="備考" Binding="{Binding Path=Remark}" Width="450"/>
@@ -61,7 +62,7 @@
                     Content="登録" 
                     Margin="0,0,0,10" 
                     Padding="5" 
-                    Command="{Binding Path=AddCommand}"/>
+                    Command="{Binding Path=AddCommand}" Cursor="Hand"/>
                 <Button
                     Content="編集" 
                     Margin="0,0,0,10" 

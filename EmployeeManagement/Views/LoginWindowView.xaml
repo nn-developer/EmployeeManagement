@@ -8,6 +8,7 @@
         xmlns:prism="http://prismlibrary.com/"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:bh="clr-namespace:EmployeeManagement.Behaviors"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         Height="150"
@@ -35,7 +36,7 @@
             HorizontalAlignment="Right"
             HorizontalContentAlignment="Left"
             Margin="0,0,10,0"
-            Content="ユーザID"/>
+            Content="ユーザID："/>
         <TextBox
             Grid.Row="0"
             Grid.Column="1"
@@ -48,7 +49,7 @@
             <i:Interaction.Behaviors>
                 <bh:PasteProhibitedControlBehavior/>
                 <bh:ChangeColorControlBehavior
-                    BackBrushOnGotFocus="AliceBlue"/>
+                    FocusedBackground="lightyellow"/>
                 <bh:SelectAllTextBoxBehavior/>
             </i:Interaction.Behaviors>
         </TextBox>
@@ -61,7 +62,7 @@
             HorizontalAlignment="Right"
             HorizontalContentAlignment="Left"
             Margin="0,0,10,0"
-            Content="パスワード"/>
+            Content="パスワード："/>
         <PasswordBox
             Grid.Row="1"
             Grid.Column="1"
@@ -75,7 +76,7 @@
             <i:Interaction.Behaviors>
                 <bh:PasteProhibitedControlBehavior/>
                 <bh:ChangeColorControlBehavior
-                    BackBrushOnGotFocus="AliceBlue"/>
+                    FocusedBackground="lightyellow"/>
             </i:Interaction.Behaviors>
         </PasswordBox>
         <StackPanel
@@ -89,26 +90,26 @@
                 Margin="10"
                 Name="LoginButton"
                 Height="30"
-                Width="80"
+                Width="120"
                 Content="ログイン"
                 IsDefault="True"
                 Command="{Binding Path=LoginCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
                 <i:Interaction.Behaviors>
                     <bh:ChangeColorControlBehavior
-                        BackBrushOnGotFocus="AliceBlue"/>
+                        FocusedBackground="{DynamicResource PrimaryHueDarkBrush}"/>
                 </i:Interaction.Behaviors>
             </Button>
             <Button
                 Margin="10"
                 Name="CancelButton"
                 Height="30"
-                Width="80"
+                Width="120"
                 Content="キャンセル"
                 IsCancel="True"
-                Command="{Binding Path=CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
+                Command="{Binding Path=CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" Cursor="Hand">
                 <i:Interaction.Behaviors>
                     <bh:ChangeColorControlBehavior
-                        BackBrushOnGotFocus="AliceBlue"/>
+                        FocusedBackground="{DynamicResource PrimaryHueDarkBrush}"/>
                 </i:Interaction.Behaviors>
             </Button>
         </StackPanel>

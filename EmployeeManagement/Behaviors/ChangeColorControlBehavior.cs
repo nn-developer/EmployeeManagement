@@ -13,16 +13,35 @@ namespace EmployeeManagement.Behaviors
 {
     public class ChangeColorControlBehavior : Behavior<Control>
     {
+        public static readonly DependencyProperty FocusedBackgroundProperty = 
+            DependencyProperty.Register(
+                "FocusedBackground",
+                typeof(Brush),
+                typeof(ChangeColorControlBehavior));
+
         /// <summary>
         /// フォーカス取得時の背景色
         /// </summary>
-        public SolidColorBrush BackBrushOnGotFocus { get; set; }
+        public Brush FocusedBackground
+        {
+            get { return (Brush)GetValue(FocusedBackgroundProperty); }
+            set { SetValue(FocusedBackgroundProperty, value); }
+        }
+
+        public static readonly DependencyProperty UnfocusedBackgroundProperty =
+            DependencyProperty.Register(
+                "UnfocusedBackground",
+                typeof(Brush),
+                typeof(ChangeColorControlBehavior));
 
         /// <summary>
         /// フォーカス喪失時の背景色
         /// </summary>
-
-        public SolidColorBrush BackBrushOnLostFocus { get; set; }
+        public Brush UnfocusedBackground
+        {
+            get { return (Brush)GetValue(UnfocusedBackgroundProperty); }
+            set { SetValue(UnfocusedBackgroundProperty, value); }
+        }
 
         /// <summary>
         /// 規定の背景色
@@ -34,10 +53,10 @@ namespace EmployeeManagement.Behaviors
         /// </summary>
         private void AssociatedObject_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (this.BackBrushOnLostFocus == null)
+            if (this.UnfocusedBackground == null)
                 this._defaultBackBrush = AssociatedObject.Background;
 
-            AssociatedObject.Background = BackBrushOnGotFocus;
+            AssociatedObject.Background = FocusedBackground;
         }
 
         /// <summary>
@@ -46,7 +65,7 @@ namespace EmployeeManagement.Behaviors
         private void AssociatedObject_LostFocus(object sender, RoutedEventArgs e)
         {
             // 喪失時の背景色が設定されているかを判定
-            if (this.BackBrushOnLostFocus == null)
+            if (this.UnfocusedBackground == null)
             {
                 // 設定されている背景色を設定
                 AssociatedObject.Background = this._defaultBackBrush;
@@ -54,7 +73,7 @@ namespace EmployeeManagement.Behaviors
             else
             {
                 // 既定の背景色を設定
-                AssociatedObject.Background = BackBrushOnLostFocus;
+                AssociatedObject.Background = UnfocusedBackground;
             }
         }
 

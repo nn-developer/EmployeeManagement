@@ -9,10 +9,11 @@
         xmlns:cnv="clr-namespace:EmployeeManagement.Converters"        
         prism:ViewModelLocator.AutoWireViewModel="False"
         mc:Ignorable="d"
-        Height="480"
+        Height="500"
         Width="500"
         FontSize="12"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner"
+        Window.ResizeMode="CanMinimize">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadCommand}" />
@@ -235,7 +236,7 @@
                         IsCancel="True"
                         Command="{Binding Path=CancelCommand}" 
                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-                        ToolTip="従業員を編集します。" />
+                        ToolTip="従業員を編集します。" Cursor="Hand" />
                 </StackPanel>
             </Grid>
         </DockPanel>
