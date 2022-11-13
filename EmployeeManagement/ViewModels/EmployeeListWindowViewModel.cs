@@ -2,11 +2,13 @@
 using EmployeeManagement.DataAccess;
 using EmployeeManagement.Models;
 using EmployeeManagement.Views;
+using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,32 +83,31 @@ namespace EmployeeManagement.ViewModels
         /// <summary>
         /// コマンド生成
         /// </summary>
-        private　void CreateCommand()
+        private void CreateCommand()
         {
             // コマンド設定
             // ロード時処理のコマンド
             this.LoadCommand = new DelegateCommand(
                 () =>
                 {
-            this.Initialize();
-        });
+                    this.Initialize();
+                });
 
             // 追加処理のコマンド
             this.AddCommand = new DelegateCommand(
                 () =>
                 {
-            this.AddEmployee();
-        });
+                    this.AddEmployee();
+                });
 
             // 編集処理のコマンド
             this.EditCommand = new DelegateCommand(
                 () =>
                 {
-            this.EditEmployee();
-        },
+                    this.EditEmployee();
+                },
                 () =>
                 {
-                    // ボタンが押せるかどうかを決める処理(trueが「押せる」)
                     return this.SelectedEmployeeListAdapter != null;
                 }
                 ).ObservesProperty(() => this.SelectedEmployeeListAdapter);
@@ -120,7 +121,6 @@ namespace EmployeeManagement.ViewModels
                 ,
                 () =>
                 {
-                    // ボタンが押せるかどうかを決める処理(trueが「押せる」)
                     return this.SelectedEmployeeListAdapter != null;
                 }).ObservesProperty(() => this.SelectedEmployeeListAdapter);
 
@@ -204,6 +204,46 @@ namespace EmployeeManagement.ViewModels
         /// 出力処理
         /// </summary>
         private void ExportEmployeeList()
-        { }
+        {
+            // 従業員名簿をCSV出力
+            var dialog = new SaveFileDialog();
+            dialog.Filter = "CSVファイル(*.csv)|*.csv|テキストファイル(*.txt)|*.txt|全てのファイル(*.*)|*.*";
+            if (dialog.ShowDialog() ?? false)
+                this.ExportEmployeeListCsv(dialog.FileName);
+
+            MessageBox.Show($"従業員名簿を出力しました。");
+        }
+
+        /// <summary>
+        /// CSV出力
+        /// </summary>
+        /// <param name="filePath">出力先のファイルパス</param>
+        private void ExportEmployeeListCsv(string filePath)
+        {
+            var sb = new StringBuilder();
+            sb.Append("氏名,");
+            sb.Append("年齢,");
+            sb.Append("性別,");
+            sb.Append("メールアドレス,");
+            sb.Append("部門名,");
+            sb.Append("備考");
+            sb.AppendLine();
+            foreach (var adapter in this.EmployeeListAdapters)
+            {
+                sb.Append($"{adapter.EmployeeName},");
+                sb.Append($"{adapter.Age},");
+                sb.Append($"{adapter.Gender},");
+                sb.Append($"{adapter.MailAddress},");
+                sb.Append($"{adapter.DepartmentName},");
+                sb.Append($"{adapter.Remark}");
+                sb.AppendLine();
+            }
+
+            using (StreamWriter sw = new StreamWriter(
+                filePath,
+                false,
+                Encoding.GetEncoding("Shift_JIS")))
+                sw.Write(sb.ToString());
+        }
     }
 }

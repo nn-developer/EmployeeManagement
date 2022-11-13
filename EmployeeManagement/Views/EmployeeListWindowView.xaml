@@ -18,6 +18,19 @@
             <i:InvokeCommandAction Command="{Binding LoadCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <Window.Resources>
+        <Style x:Key="TestCheckBoxStyle" TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignCheckBox}">
+            <Setter Property="IsChecked" Value="True"/>
+            <Style.Resources>
+                <Style TargetType="{x:Type Canvas}">
+                    <Setter Property="Background" Value="White"/>
+                </Style>
+                <Style TargetType="{x:Type Path}">
+                    <Setter Property="Fill" Value="Black"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
     <Grid
         Name="EmployeeListGrid"
         Margin="10">
@@ -77,8 +90,7 @@
                     Content="名簿出力"
                     Margin="0,0,0,10" 
                     Padding="5" 
-                    Command="{Binding Path=ExportListCommand}"
-                    Visibility="Collapsed"/>
+                    Command="{Binding Path=ExportListCommand}"/>
             </StackPanel>
         </DockPanel>
     </Grid>
